@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  brand_name: MyString
+  status: MyString
+  gig_payment: one
+  creator: 
+
+two:
+  brand_name: MyString
+  status: MyString
+  gig_payment: two
+  creator: 
