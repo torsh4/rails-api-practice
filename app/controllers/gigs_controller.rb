@@ -67,6 +67,6 @@ class GigsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def gig_params
-      params.require(:gig).permit(:brand_name, :status, :gig_payment_id, :creator)
+      params.require(:gig).permit(:brand_name, :gig_payment_id, :creator)
     end
 end
