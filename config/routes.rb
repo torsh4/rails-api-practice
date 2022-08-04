@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  resources :gigs
-  resources :gig_payments
+  resources :gigs do
+    get 'set_completed', :on => :member
+  end
+  resources :gig_payments do
+    get 'set_complete', :on => :member
+  end
   resources :users
   resources :creators do
     get 'search', :on => :collection

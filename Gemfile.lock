@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (5.3.0)
+      concurrent-ruby (~> 1.0)
     actioncable (6.0.5.1)
       actionpack (= 6.0.5.1)
       nio4r (~> 2.0)
@@ -61,6 +63,9 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
+    after_commit_everywhere (1.2.2)
+      activerecord (>= 4.2)
+      activesupport
     bcrypt (3.1.18)
     bootsnap (1.13.0)
       msgpack (~> 1.2)
@@ -159,7 +164,9 @@ PLATFORMS
   arm64-darwin-21
 
 DEPENDENCIES
+  aasm
   active_model_serializers (~> 0.10.0)
+  after_commit_everywhere (~> 1.0)
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.2)
   byebug

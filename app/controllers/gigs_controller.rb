@@ -22,11 +22,9 @@ class GigsController < ApplicationController
   # POST /gigs
   def create
     param! :creator_id, String, required: true
+    param! :brand_name, String, required: true
 
-    @gig = Gig.new(gig_params)
-    gig_payment = GigPayment.new()
-
-    @gig.gig_payment = gig_payment
+    @gig = Gig.new(creator_id: params[:creator_id], brand_name: params[:brand_name])
     @gig.creator_id = params[:creator_id]
 
     if @gig.save
@@ -40,10 +38,10 @@ class GigsController < ApplicationController
   def update
     param! :creator_id, String, required: true
     param! :brand_name, String, required: true
-    param! :state, String, required: true
+    # param! :state, String, required: true, in: ["applied", "accepted", "completed"]
 
     @gig = Gig.find(params[:id])
-    if @gig.update!(brand_name: params[:brand_name], creator_id: params[:creator_id], state: params[:state])
+    if @gig.update!(brand_name: params[:brand_name], creator_id: params[:creator_id])
       render json: @gig
     else
       render json: @gig.errors, status: :unprocessable_entity
@@ -53,6 +51,12 @@ class GigsController < ApplicationController
   # DELETE /gigs/1
   def destroy
     @gig.destroy
+  end
+
+  def set_completed
+    @gig = Gig.find(params[:id])
+    @gig.set_completed!
+    render json: @gig
   end
 
   private

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_31_161644) do
+ActiveRecord::Schema.define(version: 2022_08_03_134715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2022_07_31_161644) do
   end
 
   create_table "gig_payments", force: :cascade do |t|
-    t.string "state", default: "pending"
+    t.string "state"
     t.bigint "gig_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2022_07_31_161644) do
 
   create_table "gigs", force: :cascade do |t|
     t.string "brand_name"
-    t.string "state", default: "applied"
+    t.string "state"
     t.bigint "creator_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

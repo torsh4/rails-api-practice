@@ -43,3 +43,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rails_param'
 
 gem 'active_model_serializers', '~> 0.10.0'
+
+gem 'aasm'
+
+gem 'after_commit_everywhere', '~> 1.0'
