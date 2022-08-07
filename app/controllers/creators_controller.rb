@@ -20,22 +20,34 @@ class CreatorsController < ApplicationController
 
   # POST /creators
   def create
-    @creator = Creator.new(creator_params)
+    param! :first_name, String, required: true
+    param! :last_name, String, required: true
+    @creator = Creator.new(first_name: params[:first_name], last_name: params[:last_name])
 
     if @creator.save
       render json: @creator, status: :created, location: @creator
     else
       render json: @creator.errors, status: :unprocessable_entity
     end
+
+    rescue RailsParam::InvalidParameterError => e
+      logger.info(e)
+      render json: { status: 400, error: e }
   end
 
   # PATCH/PUT /creators/1
   def update
-    if @creator.update(creator_params)
+    param! :first_name, String, required: true
+    param! :last_name, String, required: true
+    if @creator.update(first_name: params[:first_name], last_name: params[:last_name])
       render json: @creator
     else
       render json: @creator.errors, status: :unprocessable_entity
     end
+
+  rescue RailsParam::InvalidParameterError => e
+    logger.info(e)
+    render json: { status: 400, error: e }
   end
 
   # DELETE /creators/1
@@ -61,6 +73,10 @@ class CreatorsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_creator
       @creator = Creator.find(params[:id])
+
+    rescue ActiveRecord::RecordNotFound => e
+      logger.info(e)
+      render json: { status: 404, error: e }
     end
 
     # Only allow a trusted parameter "white list" through.
