@@ -32,7 +32,7 @@ class CreatorsController < ApplicationController
 
     rescue RailsParam::InvalidParameterError => e
       logger.info(e)
-      render json: { status: 400, error: e }
+      render json: { error: e }, status: :bad_request
   end
 
   # PATCH/PUT /creators/1
@@ -47,7 +47,7 @@ class CreatorsController < ApplicationController
 
   rescue RailsParam::InvalidParameterError => e
     logger.info(e)
-    render json: { status: 400, error: e }
+    render json:{error: e}, status: :bad_request
   end
 
   # DELETE /creators/1
@@ -76,7 +76,7 @@ class CreatorsController < ApplicationController
 
     rescue ActiveRecord::RecordNotFound => e
       logger.info(e)
-      render json: { status: 404, error: e }
+      render json: { status: :not_found, error: e }
     end
 
     # Only allow a trusted parameter "white list" through.

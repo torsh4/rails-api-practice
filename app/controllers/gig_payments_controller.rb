@@ -7,6 +7,6 @@ class GigPaymentsController < ApplicationController
 
   rescue ActiveRecord::RecordNotFound => e
     logger.info(e)
-    render json: {status: 404, error: e}
+    render json: {error: e}, status: :not_found
   end
 end

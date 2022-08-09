@@ -13,7 +13,7 @@ class GigsController < ApplicationController
 
     rescue ActiveRecord::RecordNotFound => e
       logger.info(e)
-      render json: { status: 404, error: e }
+      render json: { error: e }, status: :not_found
   end
 
   # GET /gigs/1
@@ -24,7 +24,7 @@ class GigsController < ApplicationController
 
     rescue RailsParam::InvalidParameterError => e
       logger.info(e)
-      render json: { status: 400, error: e }
+      render json: { error: e }, status: :bad_request
 
   end
 
@@ -56,7 +56,7 @@ class GigsController < ApplicationController
 
     rescue ActiveRecord::RecordInvalid => e
       logger.info(e)
-      render json: { status: 404, error: e }
+      render json: {error: e}, status: :not_found
   end
 
   # DELETE /gigs/1
@@ -71,7 +71,7 @@ class GigsController < ApplicationController
 
     rescue ActiveRecord::RecordNotFound => e
       logger.info(e)
-      render json: { status: 404, error: e }
+      render json: { error: e }, status: :not_found
   end
 
   private
@@ -82,7 +82,7 @@ class GigsController < ApplicationController
 
     rescue ActiveRecord::RecordNotFound => e
       logger.info(e)
-      render json: { status: 404, error: e }
+      render json: { error: e }, status: :not_found
   end
 
   # Only allow a trusted parameter "white list" through.
