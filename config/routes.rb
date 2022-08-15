@@ -6,9 +6,6 @@ Rails.application.routes.draw do
     get 'set_complete', :on => :member
   end
   resources :users
-  resources :creators do
-    get 'search', :on => :collection
-    put 'set_first_name', :on => :member
-  end
+  resources :creators
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

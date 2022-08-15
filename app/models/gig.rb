@@ -1,14 +1,8 @@
 class Gig < ApplicationRecord
+  include AASM
+
   belongs_to :creator
   has_one :gig_payment
-
-  def create_gig_payment
-    unless self.gig_payment
-      GigPayment.create(gig_id: self.id)
-    end
-  end
-
-  include AASM
 
   aasm column: :state do
     state :applied, initial: true
@@ -24,6 +18,10 @@ class Gig < ApplicationRecord
 
   end
 
-
+  def create_gig_payment
+    unless self.gig_payment
+      GigPayment.create(gig_id: self.id)
+    end
+  end
 
 end

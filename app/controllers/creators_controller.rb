@@ -55,20 +55,6 @@ class CreatorsController < ApplicationController
     @creator.destroy
   end
 
-  def search
-    param! :q, String, required: true
-    @creator = Creator.where("first_name LIKE ? OR last_name LIKE ?", "%" + params[:q] + "%", "%" + params[:q] + "%")
-    render json: @creator
-  end
-
-  def set_first_name
-    if @creator.update(first_name: params[:first_name])
-      render json: @creator
-    else
-      render json: @creator.errors, status: :unprocessable_entity
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_creator

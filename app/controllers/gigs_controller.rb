@@ -44,19 +44,29 @@ class GigsController < ApplicationController
 
   # PATCH/PUT /gigs/1
   def update
-    param! :creator_id, String, required: true
-    param! :brand_name, String, required: true
+    param! :creator_id, String, required: false
+    param! :brand_name, String, required: false
+    param! :state, String, required: false
 
     @gig = Gig.find(params[:id])
-    if @gig.update!(brand_name: params[:brand_name], creator_id: params[:creator_id])
-      render json: @gig
-    else
-      render json: @gig.errors, status: :unprocessable_entity
+
+    Gig.transaction do
+        @gig.update!(brand_name: params[:brand_name], creator_id: params[:creator_id])
+          if params[:state] == "completed"
+            @gig.set_completed!
+          end
+        render json: @gig
+
+      rescue AASM::InvalidTransition => e
+        logger.info(e)
+        render json: {error: e}, status: :bad_request
+        fail(ActiveRecord::Rollback)
+      rescue ActiveRecord::RecordInvalid => e
+        logger.info(e)
+        render json: {error: e}, status: :not_found
+        fail(ActiveRecord::Rollback)
     end
 
-    rescue ActiveRecord::RecordInvalid => e
-      logger.info(e)
-      render json: {error: e}, status: :not_found
   end
 
   # DELETE /gigs/1

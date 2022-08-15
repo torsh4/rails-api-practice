@@ -22,6 +22,17 @@ RSpec.describe GigsController, type: :request do
 
   end
 
+  it "should not change gig status, not change gig" do
+
+    gig.set_completed!
+    put "/gigs/#{gig.id}/", params: {brand_name: "NEW BRAND NEW NEW", creator_id: creator.id, state: "completed"}
+
+    expect(response).to have_http_status(:bad_request)
+
+    expect(gig.reload.brand_name).to eq("NEW BRAND")
+
+  end
+
   it("should not update gig") do
     put "/gigs/#{gig.id}", params: {brand_name: "BRAND NEW NAME", creator_id: 89767689}
     expect(response).to have_http_status(404)
